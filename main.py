@@ -15,6 +15,7 @@ app = FastAPI()
 app.include_router(contacts.router, prefix='/api')
 app.include_router(auth.router, prefix='/api')
 
+
 @app.middleware('http')
 async def custom_middleware(request: Request, call_next):
     start_time = time.time()
@@ -22,6 +23,7 @@ async def custom_middleware(request: Request, call_next):
     during = time.time() - start_time
     response.headers['performance'] = str(during)
     return response
+
 
 templates = Jinja2Templates(directory='templates')
 app.mount("/static", StaticFiles(directory="static"), name="static")
